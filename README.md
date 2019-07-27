@@ -1,8 +1,11 @@
-matildapeak.garten
-==================
+Ansible Role - matildapeak.garten
+=================================
 
 A Role for the installation of the Matilda Peak **garten** application into a
 Kubernetes (or OpenShift) cluster.
+
+-   Powered by [TfL Open Data]
+-   Application contains OS data (c) Crown copyright and database rights 2016
 
 Requirements
 ------------
@@ -12,24 +15,36 @@ Requirements
 Role Variables
 --------------
 
-    # Create the namespace?
-    create_namespace: yes
-
-    # The croot image tag and pull policy
+    # The data collection period.
+    # Must at lest 10 and be a divisor of 60, i.e. 10, 15, 20, 30 etc.
+    collection_period_m: 10
+    # Use bike cache.
+    # Not a boolean - just 'yes' or 'no' strings.
+    use_bike_cache: 'yes'
+    
+    # The URL where Chronicler can be located.
+    # Here we're expecting it as a service in the
+    # 'chronicler' namespace.
+    chronicler_url: http://chronicler.chronicler.svc.cluster.local:9090
+    
+    # TfL (Transport for London) application credentials.
+    # An ID and key for the TfL Unified API.
+    tfl_app_id: SetMe
+    tfl_app_key: SetMe
+    
+    # NOTE: meta.name(space) comes from CR metadata
+    #       when run with Ansible Operator
+    #       deploy/crds has an example CR for reference
+    name: "{{ meta.name|default('garten') }}"
+    namespace: "{{ meta.namespace|default('garten') }}"
+    
+    # The image tag and pull policy
     image_tag: 2019.2
     image_pull_policy: IfNotPresent
-
-    # The port to expose the croot service on
-    service_port: 8080
-
+    
     # To uninstall from the cluster
-    # state: absent
+    # set state: absent
     state: present
-
-    # The namespace (project) to deploy to.
-    # When used by an Ansible Operator `meta.name(space)`
-    # comes from the custom-resource (CR) metadata.
-    namespace: "{{ meta.namespace|default('croot') }}"
 
 Dependencies
 ------------
@@ -49,9 +64,6 @@ cluster and that you have sufficient permissions in the `garten` namespace.
         vars:
           image_tag: latest
           image_pull_policy: Always
-          create_namespace: no
-
->   When deploying to Kubernetes a `garten` namespace is created by default.
 
 License
 -------
@@ -62,3 +74,5 @@ Author Information
 ------------------
 
 Developed by Matilda Peak for its **Emergent Behaviour Platform** (tm)
+
+[tfl open data]: https://tfl.gov.uk/info-for/open-data-users/
