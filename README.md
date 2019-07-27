@@ -5,7 +5,8 @@ A Role for the installation of the Matilda Peak **garten** application into a
 Kubernetes (or OpenShift) cluster.
 
 -   Powered by [TfL Open Data]
--   Application contains OS data (c) Crown copyright and database rights 2016
+-   The application contains OS data
+    (c) Crown copyright and database rights 2016
 
 Requirements
 ------------
