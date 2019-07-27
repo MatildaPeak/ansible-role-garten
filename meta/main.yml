@@ -1,0 +1,25 @@
+---
+
+galaxy_info:
+
+  role_name: garten
+  author: Matilda Peak
+  description: Manage the garten application in Kubernetes/OpenShift
+  license: GPLv3
+  min_ansible_version: 2.8
+
+  platforms:
+  - name: Kubernetes
+    versions:
+    - 1.14
+    - 1.15
+  - name: OpenShift
+    versions:
+    - 3.11
+
+  galaxy_tags:
+  - kubernetes
+  - k8s
+  - openshift
+
+dependencies: []

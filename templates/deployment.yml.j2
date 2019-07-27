@@ -1,0 +1,88 @@
+---
+
+{% if 'apps.openshift.io' in api_groups %}
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+{% else %}
+apiVersion: apps/v1
+kind: Deployment
+{% endif %}
+metadata:
+  name: {{ name }}
+  namespace: {{ namespace }}
+  labels:
+    app: {{ name }}
+    service: {{ name }}
+spec:
+  replicas: 1
+{% if 'apps.openshift.io' in api_groups %}
+  selector:
+    app: {{ name }}
+    service: {{ name }}
+{% else %}
+  selector:
+    matchLabels:
+      app: {{ name }}
+      service: {{ name }}
+{% endif %}
+  template:
+
+    metadata:
+      labels:
+        app: {{ name }}
+        service: {{ name }}
+
+    spec:
+
+      initContainers:
+
+      # An init-container to wait for Chronicler...
+      - image: registry.gitlab.com/matilda.peak/garten:{{ image_tag }}
+        name: garten-chronicler-wait
+        command:
+        - './chronicler_wait.py'
+        env:
+        - name: GARTEN_CHRONICLER_URL
+          valueFrom:
+            secretKeyRef:
+              name: garten-secrets
+              key: garten-chronicler-url
+
+      containers:
+
+      - image: registry.gitlab.com/matilda.peak/garten:{{ image_tag }}
+        name: garten
+        imagePullPolicy: {{ image_pull_policy }}
+        livenessProbe:
+          timeoutSeconds: 5
+          initialDelaySeconds: 30
+          exec:
+            command:
+            - ./docker-healthcheck.sh
+        resources:
+          requests:
+            cpu: 10m
+            memory: 64Mi
+          limits:
+            cpu: 500m
+            memory: 128Mi
+        env:
+        - name: GARTEN_COLLECTION_PERIOD_M
+          value: "{{ collection_period_m }}"
+        - name: GARTEN_USE_BIKE_CACHE
+          value: "{{ use_bike_cache }}"
+        - name: GARTEN_CHRONICLER_URL
+          valueFrom:
+            secretKeyRef:
+              name: garten-secrets
+              key: garten-chronicler-url
+        - name: TFL_APP_ID
+          valueFrom:
+            secretKeyRef:
+              name: garten-secrets
+              key: garten-tfl-app-id
+        - name: TFL_APP_KEY
+          valueFrom:
+            secretKeyRef:
+              name: garten-secrets
+              key: garten-tfl-app-key

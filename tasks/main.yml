@@ -1,0 +1,28 @@
+---
+
+- name: Sanity-check
+  assert:
+    that:
+    - collection_period_m >= 10
+    - tfl_app_id|length >0
+    - tfl_app_id != 'SetMe'
+    - tfl_app_key|length >0
+    - tfl_app_key != 'SetMe'
+    - use_bike_cache in ['yes', 'no']
+
+# Our api_groups variable may be expected in our template files.
+# It's used to dynamically reconfigure the kubernetes objects
+# mainly based on whether we're deploying to native Kubernetes
+# or OpenShift.
+
+- name: Get information about the cluster
+  set_fact:
+    api_groups: "{{ lookup('k8s', cluster_info='api_groups') }}"
+
+- name: Set objects state={{ state }}
+  k8s:
+    state: '{{ state }}'
+    definition: "{{ lookup('template', item.name)|from_yaml }}"
+  loop:
+  - name: secrets.yml.j2
+  - name: deployment.yml.j2

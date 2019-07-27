@@ -1,0 +1,9 @@
+---
+
+- hosts: servers
+  tasks:
+  - include_role:
+      name: matildapeak.garten
+    vars:
+      image_tag: latest
+      image_pull_policy: Always
