@@ -1,10 +1,12 @@
 ---
 
 # The data collection period.
-# Must at lest 10 and be a divisor of 60, i.e. 10, 15, 20, 30 etc.
+# Must at lest 10 and be a divisor of 60
+# i.e. one of 10, 12, 15, 20, 30
 collection_period_m: 10
-# Use bike cache.
-# Not a boolean - just 'yes' or 'no' strings.
+# Use a cache for the bike data.
+# This allows us to transmit changes rather than every message.
+# It is not a boolean - just 'yes' or 'no' strings.
 use_bike_cache: 'yes'
 
 # The URL where Chronicler can be located.
@@ -27,7 +29,7 @@ name: "{{ meta.name|default('garten') }}"
 namespace: "{{ meta.namespace|default('garten') }}"
 
 # The image tag and pull policy
-image_tag: 2019.2
+image_tag: 2019.4
 image_pull_policy: IfNotPresent
 
 # To uninstall from the cluster
