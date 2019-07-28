@@ -27,6 +27,9 @@ Role Variables
     # Here we're expecting it as a service in the
     # 'chronicler' namespace.
     chronicler_url: http://chronicler.chronicler.svc.cluster.local:9090
+    # And the inbound resource path,
+    # where inbound messages are posted...
+    chronicler_resource: inbound
     
     # TfL (Transport for London) application credentials.
     # An ID and key for the TfL Unified API.

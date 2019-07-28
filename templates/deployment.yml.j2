@@ -47,6 +47,11 @@ spec:
             secretKeyRef:
               name: garten-secrets
               key: garten-chronicler-url
+        - name: GARTEN_CHRONICLER_RESOURCE
+          valueFrom:
+            secretKeyRef:
+              name: garten-secrets
+              key: garten-chronicler-resource
 
       containers:
 
@@ -76,6 +81,11 @@ spec:
             secretKeyRef:
               name: garten-secrets
               key: garten-chronicler-url
+        - name: GARTEN_CHRONICLER_RESOURCE
+          valueFrom:
+            secretKeyRef:
+              name: garten-secrets
+              key: garten-chronicler-resource
         - name: TFL_APP_ID
           valueFrom:
             secretKeyRef:
