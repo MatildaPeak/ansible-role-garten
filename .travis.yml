@@ -1,0 +1,10 @@
+---
+language: minimal
+
+install:
+- pip install ansible==2.8.4
+- pip install yamllint==1.17.0
+
+script:
+- ansible-playbook --syntax-check example/site.yml -i example/inventory.yml
+- yamllint .

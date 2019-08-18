@@ -5,7 +5,7 @@ if [ ! -d "roles" ]; then
     ln -s ../.. roles/matildapeak.garten
 fi
 
-ansible-playbook site.yaml \
+ansible-playbook site.yml \
     -e state=absent \
     -e tfl_app_id=${TFL_APP_ID} \
     -e tfl_app_key=${TFL_APP_KEY}

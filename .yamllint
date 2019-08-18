@@ -1,0 +1,8 @@
+---
+
+yaml-files:
+- '*.yaml'
+- '*.yml'
+
+rules:
+  indentation: {spaces: 2, indent-sequences: false}
