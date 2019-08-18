@@ -96,3 +96,8 @@ spec:
             secretKeyRef:
               name: garten-secrets
               key: garten-tfl-app-key
+        - name: GARTEN_SENTRY_DSN
+          valueFrom:
+            secretKeyRef:
+              name: garten-secrets
+              key: garten-sentry-dsn

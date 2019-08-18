@@ -22,6 +22,12 @@ chronicler_resource: inbound
 tfl_app_id: SetMe
 tfl_app_key: SetMe
 
+# Sentry Data Source Name (DSN).
+# This is sensitive, it's optional.
+# The user needs to define it if events are to be passed to Sentry.
+# See https://sentry.io
+sentry_dsn: ''
+
 # NOTE: meta.name(space) comes from CR metadata
 #       when run with Ansible Operator
 #       deploy/crds has an example CR for reference
