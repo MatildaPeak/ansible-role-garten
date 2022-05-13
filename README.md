@@ -2,7 +2,7 @@ Ansible Role - matildapeak.garten
 =================================
 
 A Role for the installation of the Matilda Peak **garten** application into a
-Kubernetes (or OpenShift) cluster.
+Kubernetes or OpenShift cluster.
 
 -   Powered by [TfL Open Data]
 -   The application contains OS data
