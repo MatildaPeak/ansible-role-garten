@@ -5,5 +5,5 @@
   - include_role:
       name: matildapeak.garten
     vars:
-      image_tag: latest
+      image_tag: stable
       image_pull_policy: Always

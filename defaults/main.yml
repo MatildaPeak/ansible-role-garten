@@ -19,8 +19,8 @@ chronicler_resource: inbound
 
 # TfL (Transport for London) application credentials.
 # An ID and key for the TfL Unified API.
-tfl_app_id: SetMe
-tfl_app_key: SetMe
+tfl_app_id: "{{ lookup('env', 'TFL_APP_ID') }}"
+tfl_app_key: "{{ lookup('env', 'TFL_APP_KEY') }}"
 
 # Sentry Data Source Name (DSN).
 # This is sensitive, it's optional.
